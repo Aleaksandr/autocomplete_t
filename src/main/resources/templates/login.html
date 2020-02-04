@@ -43,25 +43,24 @@
 
                 <div class="form-group">
                     <div class="row">
+                        <div class="remember">
+                            Remember Me:
+                            <input type="checkbox" name="remember-me"/>
+                        </div>
                         <div class="col-sm-6 col-sm-offset-3">
+
                             <input type="submit"
                                    name="login-submit"
                                    id="login-submit"
                                    class="form-control btn btn-info"
                                    value="Log In">
-                            <span class="remember">
-                                Remember Me:
-                                <input type="checkbox" name="remember-me"/>
-                            </span>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+        <p><a href="/" th:href="@{/}">Back to home page</a></p>
     </div>
-
-    <p><a href="/" th:href="@{/}">Back to home page</a></p>
-
 </div>
 </body>
 </html>

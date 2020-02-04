@@ -1,7 +1,6 @@
 package com.it.test.config;
 
 import com.it.test.service.UserService;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,13 +9,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.sql.DataSource;
 
@@ -58,18 +54,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/js/**",
                         "/css/**",
-                        "/static/**",
                         "/img/**",
                         "/resources/**",
                         "/webjars/**").permitAll()
-                .antMatchers("/greeting").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-//                .antMatchers("/get/vendor").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/monitoring").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/initialise").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/autocomplete").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin().successHandler(savedRequestAwareAuthenticationSuccessHandler())
-                    .defaultSuccessUrl("/greeting")
+                    .defaultSuccessUrl("/index")
                     .failureUrl("/login?error")
                     .loginPage("/login")
                     .permitAll()

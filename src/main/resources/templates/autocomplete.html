@@ -3,12 +3,13 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Secured</title>
+    <title>Autocomplete API page</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <h1>This is a secured page!</h1>
-    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+    <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+        This data for USER only
+    </div>
 </div>
 </body>
 </html>

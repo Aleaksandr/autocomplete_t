@@ -6,22 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
-	@GetMapping("/greeting")
+	@GetMapping("/autocomplete")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 		model.addAttribute("name", name);
-		return "greeting";
+		return "autocomplete";
 	}
 
 	@GetMapping("/")
 	public String root(Model model) {
 		return "index";
-	}
-
-	@GetMapping("/user")
-	public String userIndex() {
-		return "user/index";
 	}
 
 	@GetMapping("/login")
