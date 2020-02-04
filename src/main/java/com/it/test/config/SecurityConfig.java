@@ -5,6 +5,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.sql.DataSource;
 
@@ -22,19 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     DataSource dataSource;
 
-    @Bean
-    public LayoutDialect layoutDialect() {
-        return new LayoutDialect();
-    }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-//        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         authenticationMgr.userDetailsService(userService).passwordEncoder(encoder);
     }
 
@@ -60,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/js/**",
                         "/css/**",
+                        "/static/**",
                         "/img/**",
                         "/resources/**",
                         "/webjars/**").permitAll()
@@ -69,20 +68,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/initialise").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(savedRequestAwareAuthenticationSuccessHandler())
-                .defaultSuccessUrl("/greeting")
-                .failureUrl("/login?error")
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin().successHandler(savedRequestAwareAuthenticationSuccessHandler())
+                    .defaultSuccessUrl("/greeting")
+                    .failureUrl("/login?error")
+                    .loginPage("/login")
+                    .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/error")
+                    .exceptionHandling().accessDeniedPage("/access-denied")
                 .and()
                 .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
-                .csrf()
+                    .csrf()
                 .and()
-                .rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(1209600);
+                    .rememberMe().tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(1209600);
     }
 }

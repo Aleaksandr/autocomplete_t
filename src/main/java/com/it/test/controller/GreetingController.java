@@ -15,7 +15,7 @@ public class GreetingController {
 	}
 
 	@GetMapping("/")
-	public String root() {
+	public String root(Model model) {
 		return "index";
 	}
 
@@ -33,6 +33,4 @@ public class GreetingController {
 	public String accessDenied() {
 		return "/error/access-denied";
 	}
-
-
 }
