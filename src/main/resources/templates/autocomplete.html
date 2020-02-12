@@ -4,11 +4,27 @@
       layout:decorate="~{fragments/layout}">
 <head>
     <title>Autocomplete API page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/autocomplete.css}"/>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <div th:if="${#authorization.expression('hasRole(''USER'')')}">
-        This data for USER only
+    <div class="container">
+        <h1>Autocomplete API Demo</h1>
+
+        <p>Type job title, keywords, or company</p>
+        <div th:class="search-panel">
+            <div th:class="autocomplete-items">
+                <div th:class="input-autocomplete">
+                    <input type="text" name="country" id="autocomplete-ajax" style="position: absolute; z-index: 2; background: transparent;"/>
+                    <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
+                </div>
+                <div id="selction-ajax"></div>
+                <input th:type="hidden" id="term" value="">
+            </div>
+            <div th:class="autocomplete-items">
+                <button type="button" class="btn btn-lg btn-outline-secondary">Light</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>
