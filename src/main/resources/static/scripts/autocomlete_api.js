@@ -1,5 +1,11 @@
 ﻿var elements = [];
 var dataCache = [];
+var meta = {
+    page: 1,
+    totalPage: 15,
+    records: 5,
+    totalRecords: 15
+};
 
 $(document).ready(function () {
 
@@ -37,7 +43,26 @@ $(document).ready(function () {
         showDetails(this.id);
     });
     searchScholarships('financial aid');
+
+    updateMeta();
 });
+
+function updateMeta() {
+
+    if(!meta || meta.totalRecords < 1){
+        $('#pagination-block').hide();
+    } else {
+        $('#pagination-block').show();
+    }
+
+    $('#pagination-block .page').remove();
+
+    var pages = '';
+    for(var i = 1; i <= meta.totalPage; i++){
+        pages += '<li class="page-item page"><a class="page-link" href="#">' + i + '</a></li>';
+    }
+    $('#pagination-block .prev').after(pages);
+}
 
 function showDetails(itemId) {
     loadingStart();
