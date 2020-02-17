@@ -1,66 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>College Hippo Login Page</title>
+    <th:block th:replace="fragments/common_style :: common_style"/>
 </head>
 <body>
-<div layout:fragment="content" th:remove="tag">
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>College Hippo Login Page</h1>
-            <form th:action="@{/login}" method="post">
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        Invalid username or password.
-                    </div>
-                </div>
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">
-                        You have been logged out.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="username">Username</label>:
-                    <input type="text"
-                           id="username"
-                           name="username"
-                           class="form-control"
-                           autofocus="autofocus"
-                           placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>:
-                    <input type="password"
-                           id="password"
-                           name="password"
-                           class="form-control"
-                           placeholder="Password">
-                </div>
-
-
-                <div class="form-group">
-                    <div class="row">
-                        <div th:style="'margin-left: 15px;'" class="remember">
-                            Remember Me:
-                            <input type="checkbox" name="remember-me"/>
-                        </div>
-                        <div class="col-sm-6 col-sm-offset-3">
-
-                            <input type="submit"
-                                   name="login-submit"
-                                   id="login-submit"
-                                   class="form-control btn btn-info"
-                                   value="Log In">
+    <th:block th:replace="fragments/navbar :: navbar"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>College Hippo Login Page</h1>
+                <form th:action="@{/login}" method="post">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Invalid username or password.
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">
+                            You have been logged out.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>:
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-control"
+                               autofocus="autofocus"
+                               placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>:
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-control"
+                               placeholder="Password">
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div th:style="'margin-left: 15px;'" class="remember">
+                                Remember Me:
+                                <input type="checkbox" name="remember-me"/>
+                            </div>
+                            <div class="col-sm-6 col-sm-offset-3">
+
+                                <input type="submit"
+                                       name="login-submit"
+                                       id="login-submit"
+                                       class="form-control btn btn-info"
+                                       value="Log In">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <p><a href="/" th:href="@{/}">Back to home page</a></p>
         </div>
-        <p><a href="/" th:href="@{/}">Back to home page</a></p>
     </div>
-</div>
+    <th:block th:replace="fragments/footer :: footer"/>
 </body>
 </html>

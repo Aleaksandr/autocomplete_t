@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>College Hippo App Home Page</title>
+    <th:block th:replace="fragments/common_style :: common_style"/>
 </head>
 <body>
-<div layout:fragment="content" th:remove="tag">
-    <h1>College Hippo App Home Page</h1>
-    <p>This is an home page, but you can access the secured pages after authenticating:</p>
-    <ul>
-        <li>Go to the   <a th:href="@{/autocomplete}">autocomplete API test page</a></li>
-    </ul>
-</div>
+    <th:block th:replace="fragments/navbar :: navbar"/>
+    <div class="container">
+        <h1>College Hippo App Home Page</h1>
+            <p>This is an home page, but you can access the secured pages after authenticating:</p>
+            <ul>
+                <li>Go to the <a th:href="@{/autocomplete}">autocomplete API test page</a></li>
+            </ul>
+    </div>
+    <th:block th:replace="fragments/footer :: footer"/>
 </body>
 </html>

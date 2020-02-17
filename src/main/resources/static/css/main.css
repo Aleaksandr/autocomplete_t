@@ -7,7 +7,11 @@ footer {
     height: 50px;
     bottom: 0;
     width: 100%;
-    background-color: #ccc
+    background-color: #ccc;
+}
+
+footer .container {
+    text-align: center;
 }
 
 footer p {

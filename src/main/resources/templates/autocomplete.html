@@ -1,31 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Autocomplete API page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/autocomplete.css}"/>
+    <th:block th:replace="fragments/common_style :: common_style"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/autocomplete_page.css}"/>
 </head>
-<body>
-<div layout:fragment="content" th:remove="tag">
-    <div class="container">
-        <h1>Autocomplete API Demo</h1>
-
-        <p>Type job title, keywords, or company</p>
-        <div th:class="search-panel">
-            <div th:class="autocomplete-items">
-                <div th:class="input-autocomplete">
-                    <input type="text" name="country" id="autocomplete-ajax" style="position: absolute; z-index: 2; background: transparent;"/>
-                    <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
-                </div>
-                <div id="selction-ajax"></div>
-                <input th:type="hidden" id="term" value="">
+    <body>
+        <th:block th:replace="fragments/navbar :: navbar"/>
+        <div class="container-body">
+            <div class="container-item-title">
+                <h1>Autocomplete API Demo</h1>
             </div>
-            <div th:class="autocomplete-items">
-                <button type="button" class="btn btn-lg btn-outline-secondary">Light</button>
+            <div class="container-item">
+                <p>Type job title, keywords, or company</p>
+                <div th:class="search-panel">
+                    <div th:class="autocomplete-items">
+                        <div th:class="input-autocomplete">
+                            <input type="text" name="country" id="autocomplete-ajax" style="position: absolute; z-index: 2; background: transparent;"/>
+                            <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;"/>
+                        </div>
+                        <div id="selction-ajax"></div>
+                        <input th:type="hidden" id="term" value="">
+                    </div>
+                </div>
+                <button id="search-start" type="button" class="btn btn-secondary btn-lg">Search</button>
+            </div>
+
+            <div class="container-item">
+                <table th:class="content-table" cellpadding="0" cellspacing="0" border="0" id="resultsBody" class="centered">
+                    <tbody id="resultsBodyContent">
+                    <tr>
+                        <td id="search-results">
+                            <div class="content-items">
+
+                            </div>
+
+                        </td>
+                        <td id="preview-block">
+                            <div class="preview-item">
+                                <div class="title">
+                                    <!--Continuous Improvement <b>Engineer</b></a>-->
+                                </div>
+                                <div class="summary">
+                                    <h4>there is nothing here yet</h4>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-</div>
-</body>
+
+        <th:block th:replace="fragments/footer :: footer"/>
+        <div id="loading">
+            <img th:src="@{/img/FhHRx.gif}" alt="spinner"/>
+        </div>
+
+        <script type="text/javascript" th:src="@{/scripts/jquery.autocomplete.js}"></script>
+        <script type="text/javascript" th:src="@{/scripts/autocomlete_api.js}"></script>
+    </body>
 </html>
